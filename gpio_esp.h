@@ -25,9 +25,9 @@ enum class ESP01: int
 {
     Tx          = 1,
     Led         = Tx,
-    Rx          = 4,
+    Rx          = 3,
 
-    Gpio_0      = 3,
+    Gpio_0      = 0,
     Gpio_2      = 2,
 };
 }
