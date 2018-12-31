@@ -35,6 +35,15 @@ inline void SetPinLevel(Pin pin_, bool level)
     mgos_gpio_write(pin, level);
 }
 
+inline bool GetOutputPinLevel(Pin pin_)
+{
+    const auto pin = static_cast<int>(pin_);
+    if (pin == -1)
+        return false;
+
+    return mgos_gpio_read_out(pin);
+}
+
 inline void ConfidurePinAsInput(Pin pin_, mgos_gpio_pull_type pull)
 {
     const auto pin = static_cast<int>(pin_);
