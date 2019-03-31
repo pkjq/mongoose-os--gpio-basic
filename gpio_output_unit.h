@@ -27,7 +27,7 @@ namespace gpio
 namespace output
 {
 template <bool inverse>
-class Unit
+class [[deprecated]] Unit
 {
 public:
     inline explicit Unit(Pin pin): pin(pin)
