@@ -32,6 +32,12 @@ namespace output
 template <bool GpioState_At_StateOn>
 class PinUnit
 {
+private:
+    virtual void Turned(bool on)
+    {
+        (void) on;
+    }
+
 public:
     inline explicit PinUnit(Pin pin): pin(pin)
     {
@@ -45,6 +51,7 @@ public:
     inline void Turn(bool on)
     {
         gpio::SetPinLevel(pin, State2GpioLevel(on));
+        Turned(on);
     }
 
     inline bool SheduleTurn(bool on)
