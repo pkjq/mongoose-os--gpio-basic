@@ -61,7 +61,7 @@ public:
 
     inline bool IsOn() const
     {
-        return gpio::GetOutputPinLevel(pin);
+        return State2GpioLevel(gpio::GetOutputPinLevel(pin));
     }
 
 private:
