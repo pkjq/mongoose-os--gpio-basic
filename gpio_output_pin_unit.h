@@ -59,6 +59,12 @@ public:
         return mgos_invoke_cb(on ? ScheduledTurn_On : ScheduledTurn_Off, this, false);
     }
 
+    inline void RunFlash(int on_ms, int off_ms);
+    inline void StopFlash()
+    {
+        RunFlash(-1, -1);
+    }
+
     inline bool IsOn() const
     {
         return State2GpioLevel(gpio::GetOutputPinLevel(pin));
@@ -83,6 +89,11 @@ template<>
 inline constexpr bool PinUnit<true>::State2GpioLevel(bool on)    { return  on; }
 template<>
 inline constexpr bool PinUnit<false>::State2GpioLevel(bool on)   { return !on; }
+
+template<>
+inline void PinUnit<true>::RunFlash(int on_ms, int off_ms)  { gpio::FlashPin(pin, off_ms, on_ms); }
+template<>
+inline void PinUnit<false>::RunFlash(int on_ms, int off_ms) { gpio::FlashPin(pin, on_ms, off_ms); }
 }
 }
 

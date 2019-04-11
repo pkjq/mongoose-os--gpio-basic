@@ -35,6 +35,15 @@ inline void SetPinLevel(Pin pin_, bool level)
     mgos_gpio_write(pin, level);
 }
 
+inline void FlashPin(Pin pin_, int level_0_ms, int level_1_ms)
+{
+    const auto pin = static_cast<int>(pin_);
+    if (pin == -1)
+        return;
+
+    mgos_gpio_blink(pin, level_1_ms, level_0_ms);
+}
+
 inline bool GetOutputPinLevel(Pin pin_)
 {
     const auto pin = static_cast<int>(pin_);
