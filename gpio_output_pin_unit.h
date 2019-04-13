@@ -21,7 +21,7 @@
 
 
 #include "gpio.h"
-
+#include <cstdint>
 #include <mgos.h>
 
 
@@ -59,10 +59,10 @@ public:
         return mgos_invoke_cb(on ? ScheduledTurn_On : ScheduledTurn_Off, this, false);
     }
 
-    inline void RunFlash(int on_ms, int off_ms);
+    inline void RunFlash(uint_fast16_t on_ms, uint_fast16_t off_ms);
     inline void StopFlash()
     {
-        RunFlash(-1, -1);
+        RunFlash(0, 0);
     }
 
     inline bool IsOn() const
@@ -91,9 +91,9 @@ template<>
 inline constexpr bool PinUnit<false>::State2GpioLevel(bool on)   { return !on; }
 
 template<>
-inline void PinUnit<true>::RunFlash(int on_ms, int off_ms)  { gpio::FlashPin(pin, off_ms, on_ms); }
+inline void PinUnit<true>::RunFlash(uint_fast16_t on_ms, uint_fast16_t off_ms)  { gpio::FlashPin(pin, off_ms, on_ms); }
 template<>
-inline void PinUnit<false>::RunFlash(int on_ms, int off_ms) { gpio::FlashPin(pin, on_ms, off_ms); }
+inline void PinUnit<false>::RunFlash(uint_fast16_t on_ms, uint_fast16_t off_ms) { gpio::FlashPin(pin, on_ms, off_ms); }
 }
 }
 

@@ -20,6 +20,7 @@
 
 
 #include <mgos_gpio.h>
+#include <cstdint>
 
 
 namespace gpio
@@ -35,13 +36,14 @@ inline void SetPinLevel(Pin pin_, bool level)
     mgos_gpio_write(pin, level);
 }
 
-inline void FlashPin(Pin pin_, int level_0_ms, int level_1_ms)
+//! @note set level_0_ms & level_1_ms to '0' to disable flash
+inline void FlashPin(Pin pin_, uint_fast16_t level_0_ms, uint_fast16_t level_1_ms)
 {
     const auto pin = static_cast<int>(pin_);
     if (pin == -1)
         return;
 
-    mgos_gpio_blink(pin, level_1_ms, level_0_ms);
+    mgos_gpio_blink(pin, static_cast<int>(level_1_ms), static_cast<int>(level_0_ms));
 }
 
 inline bool GetOutputPinLevel(Pin pin_)
