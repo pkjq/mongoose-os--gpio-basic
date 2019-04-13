@@ -63,6 +63,7 @@ public:
     inline void StopFlash()
     {
         RunFlash(0, 0);
+        TurnOff();
     }
 
     inline bool IsOn() const
