@@ -54,6 +54,17 @@ public:
         Turned(on);
     }
 
+    // return new state
+    inline bool Toggle()
+    {
+        const auto newRawState = !gpio::GetOutputPinLevel(pin);
+        gpio::SetPinLevel(pin, newRawState);
+
+        const auto newState = State2GpioLevel(newRawState);
+        Turned(newState);
+        return newState;
+    }
+
     inline bool SheduleTurn(bool on)
     {
         return mgos_invoke_cb(on ? ScheduledTurn_On : ScheduledTurn_Off, this, false);
